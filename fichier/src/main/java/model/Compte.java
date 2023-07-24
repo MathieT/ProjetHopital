@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Objects;
+import java.util.Queue;
 
 public class Compte {
 	
@@ -8,6 +9,7 @@ public class Compte {
 	private String login;
 	private String password;
 	private TypeCompte typeCompte;
+	protected Queue<Patient> fileAttente;
 	
 	public Compte(Long id, String login, String password, TypeCompte typeCompte) {
 		this.id = id;
@@ -75,6 +77,12 @@ public class Compte {
 			return false;
 		Compte other = (Compte) obj;
 		return Objects.equals(id, other.id);
+	}
+	
+	public void afficherFileAttente() {
+		for(Patient patient: fileAttente) {
+		System.out.println(patient.toString());
+		}
 	}
 	
 	

@@ -69,6 +69,12 @@ public class Patient {
 		Patient other = (Patient) obj;
 		return Objects.equals(id, other.id);
 	}
+
+
+	@Override
+	public String toString() {
+		return "Patient [id=" + id + ", nom=" + nom + ", prenom=" + prenom + "]";
+	}
 	
 	
 	

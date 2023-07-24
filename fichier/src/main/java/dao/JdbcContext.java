@@ -7,6 +7,13 @@ import java.sql.SQLException;
 
 
 public class JdbcContext {
+	private static DaoVisite daoVisite = new DaoVisiteJdbc();
+	private static DaoPatient daoPatient = new DaoPatientJdbcImpl();
+	private static DaoCompte daoCompte = new DaoCompteJdbcImpl();
+	
+	
+	
+	
 	
 	private Connection connection;
 	private static JdbcContext singleton = null;
@@ -18,6 +25,7 @@ public class JdbcContext {
 			e.printStackTrace();
 		}
 	}
+	
 
 	// Factory
 	private JdbcContext() {
@@ -27,6 +35,51 @@ public class JdbcContext {
 			e.printStackTrace();
 		}
 	}
+
+	
+	
+	
+	public static DaoVisite getDaoVisite() {
+		return daoVisite;
+	}
+
+
+
+
+	public static DaoPatient getDaoPatient() {
+		return daoPatient;
+	}
+
+
+
+
+	public static DaoCompte getDaoCompte() {
+		return daoCompte;
+	}
+
+
+
+
+	public static void setDaoVisite(DaoVisite daoVisite) {
+		JdbcContext.daoVisite = daoVisite;
+	}
+
+
+
+
+	public static void setDaoPatient(DaoPatient daoPatient) {
+		JdbcContext.daoPatient = daoPatient;
+	}
+
+
+
+
+	public static void setDaoCompte(DaoCompte daoCompte) {
+		JdbcContext.daoCompte = daoCompte;
+	}
+
+
+
 
 	public static JdbcContext getContext() {
 		if (singleton == null) {

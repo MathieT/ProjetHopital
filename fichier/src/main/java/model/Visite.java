@@ -10,9 +10,20 @@ public class Visite {
 	private Salle salle;
 	private LocalDate dtVisite;
 	private Patient patient;
-	private Compte compte;
 	private Medecin medecin;
 	
+	
+	
+
+
+	public Visite(Long numVisite, Salle salle, LocalDate dtVisite, Patient patient, Medecin medecin) {
+		super();
+		this.numVisite = numVisite;
+		this.salle = salle;
+		this.dtVisite = dtVisite;
+		this.patient = patient;
+		this.medecin = medecin;
+	}
 	
 	
 	public Visite(Long numVisite, Salle salle, LocalDate dtVisite) {
@@ -20,26 +31,7 @@ public class Visite {
 		this.numVisite = numVisite;
 		this.salle = salle;
 		this.dtVisite = dtVisite;
-	}
-
-
-	public Visite(Long numVisite, Salle salle, LocalDate dtVisite, Patient patient, Compte compte, Medecin medecin) {
-		super();
-		this.numVisite = numVisite;
-		this.salle = salle;
-		this.dtVisite = dtVisite;
-		this.patient = patient;
-		this.compte = compte;
-		this.medecin = medecin;
-	}
 	
-	
-	public Visite(Long numVisite, Salle salle, LocalDate dtVisite, Compte compte) {
-		super();
-		this.numVisite = numVisite;
-		this.salle = salle;
-		this.dtVisite = dtVisite;
-		this.compte = compte;
 	}
 
 
@@ -47,6 +39,14 @@ public class Visite {
 		super();
 		this.numVisite = numVisite;
 		this.dtVisite = dtVisite;
+	}
+
+
+	public Visite(Salle salle, LocalDate dtVisite, Patient patient, Medecin medecin) {
+		this.salle = salle;
+		this.dtVisite = dtVisite;
+		this.patient = patient;
+		this.medecin = medecin;
 	}
 
 
@@ -73,12 +73,6 @@ public class Visite {
 	}
 	public void setPatient(Patient patient) {
 		this.patient = patient;
-	}
-	public Compte getCompte() {
-		return compte;
-	}
-	public void setCompte(Compte compte) {
-		this.compte = compte;
 	}
 	public Medecin getMedecin() {
 		return medecin;

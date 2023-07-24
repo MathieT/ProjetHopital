@@ -1,7 +1,12 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+
+import dao.DaoVisite;
+import dao.DaoVisiteJdbc;
+import dao.JdbcContext;
 
 public class Medecin extends Compte{
 
@@ -68,14 +73,24 @@ public class Medecin extends Compte{
 	}
 	
 	public void salleDisponible() {
-		
+		//sauvegarder visite
+		Visite visite = new Visite (salle, LocalDate.now(), fileAttente.peek(), this);
+		visites.add(visite);
+		fileAttente.remove();
 	}
 	
-	public void visualiserPatients() {
-		
+	public void visualiserProchainPatient() {
+		System.out.println("prochain patient:" + fileAttente.peek().toString());
 	}
 	
 	public void sauvegarderVisites() {
-		
+		for(Visite visite: visites) {
+			DaoVisite daoVisite = JdbcContext.getDaoVisite();
+			daoVisite.create(visite);
+		}
+		visites.clear();
 	}
+	
+
+	
 }
