@@ -9,6 +9,14 @@ public enum Salle {
 		private Salle(String nomSalle) {
 			this.nomSalle = nomSalle;
 		}
+
+		public String getNomSalle() {
+			return nomSalle;
+		}
+
+		public void setNomSalle(String nomSalle) {
+			this.nomSalle = nomSalle;
+		}
 		
 		
 }
