@@ -1,4 +1,4 @@
-package fichier;
+package model;
 
 public class Secretaire {
 

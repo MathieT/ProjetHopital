@@ -1,4 +1,4 @@
-package fichier;
+package model;
 
 public enum TypeCompte {
 	
