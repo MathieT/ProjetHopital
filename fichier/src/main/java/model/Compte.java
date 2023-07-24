@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Compte {
 	
-	private Long id;
+	protected Long id;
 	private String login;
 	private String password;
 	private TypeCompte typeCompte;
@@ -20,6 +20,12 @@ public class Compte {
 		this.login = login;
 		this.password = password;
 		this.typeCompte = typeCompte;
+	}
+	
+	
+
+	public Compte(Long id) {
+		this.id = id;
 	}
 
 	public Long getId() {

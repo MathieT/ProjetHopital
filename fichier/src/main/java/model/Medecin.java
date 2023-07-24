@@ -3,24 +3,29 @@ package model;
 import java.util.List;
 import java.util.Objects;
 
-public class Medecin {
+public class Medecin extends Compte{
 
-	private Long id;
 	private List<Visite> visites;
 	private Salle salle;
 
-	public Medecin() {
-		super();
+	
+	
+	public Medecin(Long id, String login, String password, TypeCompte typeCompte) {
+		super(id, login, password, typeCompte);
+		
+	}
+
+	public Medecin(String login, String password, TypeCompte typeCompte) {
+		super(login, password, typeCompte);
+		
 	}
 
 	public Medecin(Long id) {
-		super();
-		this.id = id;
+		super(id);
 	}
 	
 	public Medecin(Long id, Salle salle) {
-		super();
-		this.id = id;
+		super(id);
 		this.salle = salle;
 	}
 

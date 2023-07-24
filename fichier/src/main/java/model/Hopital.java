@@ -8,14 +8,14 @@ public class Hopital {
 		private Secretaire secretaire;
 		private Medecin medecin1;
 		private Medecin medecin2;
-		private Queue<Patient> patients;
+		private FileAttente listeAttente;
 		
-		public Hopital(Secretaire secretaire, Medecin medecin1, Medecin medecin2, Queue<Patient> patients) {
+		public Hopital(Secretaire secretaire, Medecin medecin1, Medecin medecin2, FileAttente listeAttente) {
 			super();
 			this.secretaire = secretaire;
 			this.medecin1 = medecin1;
 			this.medecin2 = medecin2;
-			this.patients = patients;
+			this.listeAttente = listeAttente;
 		}
 
 		public Hopital() {
@@ -53,12 +53,13 @@ public class Hopital {
 			this.medecin2 = medecin2;
 		}
 
-		public Queue<Patient> getPatients() {
-			return patients;
+
+		public FileAttente getListeAttente() {
+			return listeAttente;
 		}
 
-		public void setPatients(Queue<Patient> patients) {
-			this.patients = patients;
+		public void setListeAttente(FileAttente listeAttente) {
+			this.listeAttente = listeAttente;
 		}
 
 		@Override
