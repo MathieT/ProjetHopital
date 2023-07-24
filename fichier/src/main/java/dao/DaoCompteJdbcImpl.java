@@ -113,5 +113,26 @@ public class DaoCompteJdbcImpl implements DaoCompte{
 		JdbcContext.close();
 		return list;
 	}
+	
+	public Compte findByIdentifiant(String login, String password) {
+		PreparedStatement ps = null;
+		Compte compte = null;
+		ResultSet rs = null;
+		try {
+			ps = JdbcContext.getContext().getConnection().prepareStatement(
+					"select * from compte where compte_login = ? && compte_password = ?");
+			ps.setString(1, login);
+			ps.setString(2, password);
+			rs = ps.executeQuery();			
+			while (rs.next()) {
+				compte = getCompte(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		JdbcContext.close();
+		return compte;
+	}
+	
 
 }

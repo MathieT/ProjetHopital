@@ -14,13 +14,18 @@ public class Medecin extends Compte{
 
 	
 	
-	public Medecin(Long id, String login, String password, TypeCompte typeCompte) {
-		super(id, login, password, typeCompte);
+	public Medecin(Long id, String login, String password) {
+		super(id, login, password, TypeCompte.Medecin);
 		
 	}
+	
+	public Medecin(Long id, String login, String password, Salle salle) {
+		super(id, login, password, TypeCompte.Medecin);
+		this.salle = salle;
+	}
 
-	public Medecin(String login, String password, TypeCompte typeCompte) {
-		super(login, password, typeCompte);
+	public Medecin(String login, String password) {
+		super(login, password, TypeCompte.Medecin);
 		
 	}
 
@@ -76,6 +81,9 @@ public class Medecin extends Compte{
 		Visite visite = new Visite (salle, LocalDate.now(), fileAttente.peek(), this);
 		visites.add(visite);
 		fileAttente.remove();
+		if(visites.size()==10) {
+			this.sauvegarderVisites();
+		}
 	}
 	
 	public void visualiserProchainPatient() {

@@ -17,13 +17,13 @@ public class Secretaire extends Compte {
 		
 	}
 
-	public Secretaire(Long id, String login, String password, TypeCompte typeCompte) {
-		super(id, login, password, typeCompte);
+	public Secretaire(Long id, String login, String password) {
+		super(id, login, password, TypeCompte.Secretaire);
 		
 	}
 
-	public Secretaire(String login, String password, TypeCompte typeCompte) {
-		super(login, password, typeCompte);
+	public Secretaire(String login, String password) {
+		super(login, password, TypeCompte.Secretaire);
 		
 	}
 
