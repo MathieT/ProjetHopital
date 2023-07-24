@@ -1,8 +1,5 @@
 package model;
 
-import java.util.List;
-import java.util.Queue;
-
 public class Hopital {
 
 		private Secretaire secretaire;

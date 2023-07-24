@@ -42,7 +42,6 @@ public class DaoVisiteJdbc implements DaoVisite {
 	@Override
 	public void update(Visite obj) {
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 		try {
 			ps = JdbcContext.getContext().getConnection().prepareStatement(
 					"update visite set visite_idpatient=?,visite_idmedecin=?,visite_tarif=?,visite_salle=?,visite_date=?) ",
@@ -52,8 +51,6 @@ public class DaoVisiteJdbc implements DaoVisite {
 			ps.setInt(3, obj.getCoutVisite());
 			ps.setString(4, obj.getSalle().getNomSalle());
 			ps.setDate(5, Date.valueOf(obj.getDtVisite()));
-			ps.executeUpdate();
-			rs = ps.getGeneratedKeys();
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

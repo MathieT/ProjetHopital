@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 import dao.DaoVisite;
-import dao.DaoVisiteJdbc;
 import dao.JdbcContext;
 
 public class Medecin extends Compte{
