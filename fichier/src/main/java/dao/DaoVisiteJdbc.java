@@ -1,5 +1,6 @@
 package dao;
 
-public class DaoVisiteJdbc implements{
+public class DaoVisiteJdbc implements DaoVisite{
 
+	
 }

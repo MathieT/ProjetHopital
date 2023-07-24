@@ -1,5 +1,5 @@
 package dao;
 
-public interface DaoVisite {
+public interface DaoVisite extends DaoGeneric<E, K>{
 
 }
