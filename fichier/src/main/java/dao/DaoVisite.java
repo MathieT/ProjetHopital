@@ -1,7 +1,5 @@
 package dao;
 
-import model.Visite;
-
-public interface DaoVisite extends DaoGeneric<Visite, Long>{
+public interface DaoVisite extends DaoGeneric<E, K>{
 
 }
