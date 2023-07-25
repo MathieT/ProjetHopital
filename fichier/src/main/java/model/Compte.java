@@ -1,5 +1,6 @@
 package model;
 
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Queue;
 
@@ -9,7 +10,7 @@ public class Compte {
 	private String login;
 	private String password;
 	private TypeCompte typeCompte;
-	protected Queue<Patient> fileAttente;
+	protected static Queue<Patient> fileAttente = new LinkedList<Patient>();
 	
 	public Compte(Long id, String login, String password, TypeCompte typeCompte) {
 		this.id = id;

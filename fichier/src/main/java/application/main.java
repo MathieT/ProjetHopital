@@ -20,6 +20,7 @@ public class main {
 		Scanner sc=new Scanner(System.in);
 		System.out.println(msg);
 		a = sc.nextLine();
+		//sc.close();
 		return a;
 	}
 	
@@ -28,6 +29,7 @@ public class main {
 		Scanner sc=new Scanner(System.in);
 		System.out.println(msg);
 		a = sc.nextInt();
+		//sc.close();
 		return a;
 	}
 	
@@ -36,6 +38,7 @@ public class main {
 		Scanner sc=new Scanner(System.in);
 		System.out.println(msg);
 		a = sc.nextLong();
+		//sc.close();
 		return a;
 	}
 	
@@ -61,80 +64,88 @@ public class main {
 		}
 	}
 	
-	static void menuprincipal() throws ExceptionLoginFail{
-		identification();
+	static void menuprincipal() {
+		try {
+			identification();
+		}catch(ExceptionLoginFail e) {
+			e.printStackTrace();
+		}
 	}
 	
 	static void menuPrincipalMedecin(Medecin medecin) throws ExceptionLoginFail {
-		System.out.println("Pour rendre votre salle disponible, vous pouvez cliquer sur 1 ");
-		System.out.println("Pour voir la file d'attente, vous pouvez cliquer sur 2 ");
-		System.out.println("Pour voir le prochain patient, vous pouvez cliquer sur 3 ");
-		System.out.println("Pour sauvegarder la liste des visites, vous pouvez cliquer sur 4 ");
-		System.out.println("Pour retourner au menu précédent (déconnexion), vous pouvez cliquer sur 5 ");
-		int reponse = SaisieInt("Tapez votre réponse :");
-		switch(reponse) {
-			case 1:
-				medecin.salleDisponible();
-				break;
-			case 2 :
-				medecin.afficherFileAttente();
-				break;
-			case 3 :
-				medecin.visualiserProchainPatient();
-				break;
-			case 4:
-				medecin.sauvegarderVisites();
-				break;
-			case 5:
-				medecin = null;
-				break;
+		while(medecin!=null) {
+			System.out.println();
+			System.out.println("Pour rendre votre salle disponible, vous pouvez cliquer sur 1 ");
+			System.out.println("Pour voir la file d'attente, vous pouvez cliquer sur 2 ");
+			System.out.println("Pour voir le prochain patient, vous pouvez cliquer sur 3 ");
+			System.out.println("Pour sauvegarder la liste des visites, vous pouvez cliquer sur 4 ");
+			System.out.println("Pour retourner au menu précédent (déconnexion), vous pouvez cliquer sur 5 ");
+			int reponse = SaisieInt("Tapez votre réponse :");
+			switch(reponse) {
+				case 1:
+					medecin.salleDisponible();
+					break;
+				case 2 :
+					medecin.afficherFileAttente();
+					break;
+				case 3 :
+					medecin.visualiserProchainPatient();
+					break;
+				case 4:
+					medecin.sauvegarderVisites();
+					break;
+				case 5:
+					medecin = null;
+					break;
+			}
 		}
-		identification();
+		menuprincipal();
 	}
 	
-	static void menuPrincipalSecretaire(Secretaire secretaire) {
-		System.out.println("Pour ajouter un patient en liste d'attente, vous pouvez cliquer sur 1 ");
-		System.out.println("Pour voir la file d'attente, vous pouvez cliquer sur 2 ");
-		System.out.println("Pour partir en pause, vous pouvez cliquer sur 3 ");
-		System.out.println("Pour retourner au menu précédent (déconnexion), vous pouvez cliquer sur 4 ");
-		int reponse = SaisieInt("Tapez votre réponse :");
-		switch(reponse) {
-			case 1:
-				String patientConnu;
-				patientConnu = SaisieString("Le patient est-il dans la base de données (Y/N)?");
-				if(patientConnu.equals("N")) {
-					String nomPatient = SaisieString("Rentrez le nom du patient : ");
-					String prenomPatient = SaisieString("Rentrez le prénom du patient : ");
+	static void menuPrincipalSecretaire(Secretaire secretaire) throws ExceptionLoginFail {
+		while(secretaire!=null) {
+			System.out.println("Pour ajouter un patient en liste d'attente, vous pouvez cliquer sur 1 ");
+			System.out.println("Pour voir la file d'attente, vous pouvez cliquer sur 2 ");
+			System.out.println("Pour partir en pause, vous pouvez cliquer sur 3 ");
+			System.out.println("Pour retourner au menu précédent (déconnexion), vous pouvez cliquer sur 4 ");
+			int reponse = SaisieInt("Tapez votre réponse :");
+			switch(reponse) {
+				case 1:
+					String patientConnu;
+					patientConnu = SaisieString("Le patient est-il dans la base de données (Y/N)?");
+					if(patientConnu.equals("N")) {
+						String nomPatient = SaisieString("Rentrez le nom du patient : ");
+						String prenomPatient = SaisieString("Rentrez le prénom du patient : ");
+						DaoPatient daoPatient = JdbcContext.getDaoPatient();
+						daoPatient.create(new Patient(nomPatient,prenomPatient));
+					}
+					Long idPatient;
+					idPatient = SaisieLong("Rentrez l'ID du patient : ");
 					DaoPatient daoPatient = JdbcContext.getDaoPatient();
-					daoPatient.create(new Patient(nomPatient,prenomPatient));
-				}
-				Long idPatient;
-				idPatient = SaisieLong("Rentrez l'ID du patient : ");
-				DaoPatient daoPatient = JdbcContext.getDaoPatient();
-				secretaire.ajoutFileAttente(daoPatient.findByKey(idPatient));
-				break;
-			case 2 :
-				secretaire.afficherFileAttente();
-				break;
-			case 3 :
-				secretaire.enPause();
-				String retourPause = SaisieString("Tapez sur n'importe quelle touche quand ovus ètes de retour de pause");
-				secretaire.finPause();
-				break;
-			case 4:
-				secretaire = null;
-				break;
+					secretaire.ajoutFileAttente(daoPatient.findByKey(idPatient));
+					break;
+				case 2 :
+					secretaire.afficherFileAttente();
+					break;
+				case 3 :
+					secretaire.enPause();
+					String retourPause = SaisieString("Tapez sur n'importe quelle touche quand vous ètes de retour de pause");
+					secretaire.finPause();
+					break;
+				case 4:
+					secretaire = null;
+					break;
+			}
 		}
+		menuprincipal();
 	}
 
-	public static void main(String[] args) throws ExceptionLoginFail{
+	public static void main(String[] args){
 		/*DaoCompte daoCompte = JdbcContext.getDaoCompte();
 		daoCompte.create(new Secretaire("secretaire1", "Secretaire1",TypeCompte.Secretaire));
 		daoCompte.create(new Medecin("medecin1", "Medecin1",TypeCompte.Medecin));
 		daoCompte.create(new Medecin("medecin2", "Medecin2",TypeCompte.Medecin));*/
 		menuprincipal();
-		
-		
 	}
 
 }

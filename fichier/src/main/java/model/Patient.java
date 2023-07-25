@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Patient {
+public class Patient implements Serializable{
 	
 	private Long id;
 	private String nom;
