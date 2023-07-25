@@ -84,9 +84,9 @@ public class Medecin extends Compte{
 	
 	public void salleDisponible() {
 		//sauvegarder visite
-		Visite visite = new Visite (salle, LocalDate.now(), fileAttente.peek(), this);
-		visites.add(visite);
-		if(visites.size()>0) {
+		if(fileAttente.size()>0) {
+			Visite visite = new Visite (salle, LocalDate.now(), fileAttente.peek(), this);
+			visites.add(visite);
 			fileAttente.remove();
 		}
 		if(visites.size()==10) {

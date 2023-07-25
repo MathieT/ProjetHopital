@@ -9,24 +9,20 @@ public class Patient implements Serializable{
 	private String nom;
 	private String prenom;
 	
-	
 	public Patient(Long id, String nom, String prenom) {
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 	}
 
-
 	public Patient(String nom, String prenom) {
 		this.nom = nom;
 		this.prenom = prenom;
 	}
 
-
 	public Long getId() {
 		return id;
 	}
-
 
 	public String getNom() {
 		return nom;

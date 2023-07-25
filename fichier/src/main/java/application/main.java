@@ -20,7 +20,6 @@ public class main {
 		Scanner sc=new Scanner(System.in);
 		System.out.println(msg);
 		a = sc.nextLine();
-		//sc.close();
 		return a;
 	}
 	
@@ -29,7 +28,6 @@ public class main {
 		Scanner sc=new Scanner(System.in);
 		System.out.println(msg);
 		a = sc.nextInt();
-		//sc.close();
 		return a;
 	}
 	
@@ -38,7 +36,6 @@ public class main {
 		Scanner sc=new Scanner(System.in);
 		System.out.println(msg);
 		a = sc.nextLong();
-		//sc.close();
 		return a;
 	}
 	
@@ -52,6 +49,7 @@ public class main {
 		}
 		Compte compte = daoCompte.findByIdentifiant(login,password);
 		if(compte!= null) {
+			System.out.println("Bienvenue "+ compte.getLogin());
 			if(compte.getTypeCompte()==TypeCompte.Medecin) {
 				String nomsalle = SaisieString("Choisissez une salle (Tapez Salle1 ou Salle2) :");
 				Medecin medecin = new Medecin(compte.getId(),compte.getLogin(),compte.getPassword(),Salle.valueOf(nomsalle));
@@ -73,6 +71,7 @@ public class main {
 	}
 	
 	static void menuPrincipalMedecin(Medecin medecin) throws ExceptionLoginFail {
+		int reponse = 0;
 		while(medecin!=null) {
 			System.out.println();
 			System.out.println("Pour rendre votre salle disponible, vous pouvez cliquer sur 1 ");
@@ -80,7 +79,8 @@ public class main {
 			System.out.println("Pour voir le prochain patient, vous pouvez cliquer sur 3 ");
 			System.out.println("Pour sauvegarder la liste des visites, vous pouvez cliquer sur 4 ");
 			System.out.println("Pour retourner au menu précédent (déconnexion), vous pouvez cliquer sur 5 ");
-			int reponse = SaisieInt("Tapez votre réponse :");
+			System.out.println("Pour fermer l'application, vous pouvez cliquer sur 6 ");
+			reponse = SaisieInt("Tapez votre réponse :");
 			switch(reponse) {
 				case 1:
 					medecin.salleDisponible();
@@ -97,18 +97,25 @@ public class main {
 				case 5:
 					medecin = null;
 					break;
+				case 6:
+					medecin = null;
+					break;
 			}
 		}
-		menuprincipal();
+		if(reponse==5) {
+			menuprincipal();
+		}
 	}
 	
 	static void menuPrincipalSecretaire(Secretaire secretaire) throws ExceptionLoginFail {
+		int reponse = 0;
 		while(secretaire!=null) {
 			System.out.println("Pour ajouter un patient en liste d'attente, vous pouvez cliquer sur 1 ");
 			System.out.println("Pour voir la file d'attente, vous pouvez cliquer sur 2 ");
 			System.out.println("Pour partir en pause, vous pouvez cliquer sur 3 ");
 			System.out.println("Pour retourner au menu précédent (déconnexion), vous pouvez cliquer sur 4 ");
-			int reponse = SaisieInt("Tapez votre réponse :");
+			System.out.println("Pour fermer l'application, vous pouvez cliquer sur 5 ");
+			reponse = SaisieInt("Tapez votre réponse :");
 			switch(reponse) {
 				case 1:
 					String patientConnu;
@@ -129,15 +136,20 @@ public class main {
 					break;
 				case 3 :
 					secretaire.enPause();
-					String retourPause = SaisieString("Tapez sur n'importe quelle touche quand vous ètes de retour de pause");
+					SaisieString("Tapez sur n'importe quelle touche quand vous ètes de retour de pause");
 					secretaire.finPause();
 					break;
 				case 4:
 					secretaire = null;
 					break;
+				case 5:
+					secretaire = null;
+					break;
 			}
 		}
-		menuprincipal();
+		if(reponse==4) {
+			menuprincipal();
+		}
 	}
 
 	public static void main(String[] args){
