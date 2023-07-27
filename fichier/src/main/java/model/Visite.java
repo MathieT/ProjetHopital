@@ -12,9 +12,6 @@ public class Visite {
 	private Patient patient;
 	private Medecin medecin;
 	
-	
-	
-
 
 	public Visite(Long numVisite, Salle salle, LocalDate dtVisite, Patient patient, Medecin medecin) {
 		super();
@@ -97,6 +94,13 @@ public class Visite {
 			return false;
 		Visite other = (Visite) obj;
 		return Objects.equals(numVisite, other.numVisite);
+	}
+
+
+	@Override
+	public String toString() {
+		return "Visite [numVisite=" + numVisite + ", coutVisite=" + coutVisite + ", salle=" + salle + ", dtVisite="
+				+ dtVisite + ", patient=" + patient + ", medecin=" + medecin + "]";
 	}
 	
 	

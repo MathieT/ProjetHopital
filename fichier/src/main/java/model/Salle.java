@@ -2,7 +2,7 @@ package model;
 
 public enum Salle {
 		
-		Salle1("salle1"), Salle2("salle2");
+		Salle1("Salle1"), Salle2("Salle2");
 		
 		private String nomSalle;
 

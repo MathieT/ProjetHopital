@@ -15,6 +15,11 @@ public class Medecin extends Compte{
 
 	
 	
+	public Medecin(String login, String password, TypeCompte typeCompte) {
+		super(login, password, typeCompte);
+		// TODO Auto-generated constructor stub
+	}
+
 	public Medecin(Long id, String login, String password) {
 		super(id, login, password, TypeCompte.Medecin);
 		visites = new ArrayList<Visite>();
@@ -93,6 +98,11 @@ public class Medecin extends Compte{
 			this.sauvegarderVisites();
 		}
 	}
+	
+	public void enregistrerVisite() {
+		JdbcContext.getDaoVisite().create(null);
+	}
+	
 	
 	public void visualiserProchainPatient() {
 		if(fileAttente.size()>0) {

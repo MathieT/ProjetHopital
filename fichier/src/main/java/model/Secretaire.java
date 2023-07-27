@@ -4,13 +4,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 import java.util.Queue;
 
+import dao.DaoVisite;
+import dao.JdbcContext;
 
 
 public class Secretaire extends Compte {
 
-	
 	
 	public Secretaire(Long id) {
 		super(id);
@@ -27,8 +29,25 @@ public class Secretaire extends Compte {
 		
 	}
 
+
+	public Secretaire(String login, String password, TypeCompte typeCompte) {
+		super(login, password, typeCompte);
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean ajoutFileAttente(Patient patient) {
 		return fileAttente.add(patient);
+	}
+	
+	public void afficherVisitePatient(Patient patient) {
+			DaoVisite daoVisite = JdbcContext.getDaoVisite();
+			List<Visite> visites= daoVisite.findByPatient(patient);
+			for(Visite visite: visites) {
+			System.out.println(visite.toString());	
+			}
+	}
+	
+	public void sauvegarderVisites() {
 	}
 	
 	public void creationPatient() {

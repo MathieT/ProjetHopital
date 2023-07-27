@@ -1,9 +1,11 @@
 package application;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import dao.DaoCompte;
 import dao.DaoPatient;
+import dao.DaoVisite;
 import dao.JdbcContext;
 import model.Compte;
 import model.ExceptionLoginFail;
@@ -12,6 +14,7 @@ import model.Patient;
 import model.Salle;
 import model.Secretaire;
 import model.TypeCompte;
+import model.Visite;
 
 public class main {
 	
@@ -46,6 +49,8 @@ public class main {
 		String password = SaisieString("Password :");
 		if(daoCompte.findByIdentifiant(login,password)==null) {
 			throw new ExceptionLoginFail("Erreur : ce login et/ou password ne correspondent pas à un compte existant");
+			//System.err.println("Erreur : ce login et/ou password ne correspondent pas à un compte existant");
+			//identification();
 		}
 		Compte compte = daoCompte.findByIdentifiant(login,password);
 		if(compte!= null) {
@@ -62,15 +67,20 @@ public class main {
 		}
 	}
 	
+
 	static void menuprincipal() {
-		try {
+		boolean continuProgramme=true;
+		while(continuProgramme) {
+			try {
 			identification();
-		}catch(ExceptionLoginFail e) {
+				}catch(ExceptionLoginFail e) {
 			e.printStackTrace();
+				}
 		}
 	}
 	
-	static void menuPrincipalMedecin(Medecin medecin) throws ExceptionLoginFail {
+	static boolean menuPrincipalMedecin(Medecin medecin) throws ExceptionLoginFail {
+		boolean continuProgramme=true;
 		int reponse = 0;
 		while(medecin!=null) {
 			System.out.println();
@@ -99,32 +109,33 @@ public class main {
 					break;
 				case 6:
 					medecin = null;
+					continuProgramme=false;
 					break;
 			}
 		}
 		if(reponse==5) {
 			menuprincipal();
 		}
+		return continuProgramme;
 	}
 	
-	static void menuPrincipalSecretaire(Secretaire secretaire) throws ExceptionLoginFail {
+	static boolean menuPrincipalSecretaire(Secretaire secretaire) throws ExceptionLoginFail {
+		boolean continuProgramme=true;
 		int reponse = 0;
 		while(secretaire!=null) {
 			System.out.println("Pour ajouter un patient en liste d'attente, vous pouvez cliquer sur 1 ");
 			System.out.println("Pour voir la file d'attente, vous pouvez cliquer sur 2 ");
 			System.out.println("Pour partir en pause, vous pouvez cliquer sur 3 ");
-			System.out.println("Pour retourner au menu précédent (déconnexion), vous pouvez cliquer sur 4 ");
-			System.out.println("Pour fermer l'application, vous pouvez cliquer sur 5 ");
+			System.out.println("Pour afficher les visite d'un patient, vous pouvez cliquer sur 4");
+			System.out.println("Pour retourner au menu précédent (déconnexion), vous pouvez cliquer sur 5 ");
+			System.out.println("Pour fermer l'application, vous pouvez cliquer sur 6 ");
+			
 			reponse = SaisieInt("Tapez votre réponse :");
 			switch(reponse) {
 				case 1:
 					String patientConnu;
 					patientConnu = SaisieString("Le patient est-il dans la base de données (Y/N)?");
 					if(patientConnu.equals("N")) {
-						String nomPatient = SaisieString("Rentrez le nom du patient : ");
-						String prenomPatient = SaisieString("Rentrez le prénom du patient : ");
-						DaoPatient daoPatient = JdbcContext.getDaoPatient();
-						daoPatient.create(new Patient(nomPatient,prenomPatient));
 					}
 					Long idPatient;
 					idPatient = SaisieLong("Rentrez l'ID du patient : ");
@@ -138,18 +149,27 @@ public class main {
 					secretaire.enPause();
 					SaisieString("Tapez sur n'importe quelle touche quand vous ètes de retour de pause");
 					secretaire.finPause();
-					break;
+					break;	
 				case 4:
-					secretaire = null;
+					Long idPatient1;
+					idPatient1 = SaisieLong("Rentrez l'ID du patient : ");
+					Patient patient1 = JdbcContext.getDaoPatient().findByKey(idPatient1);
+					secretaire.afficherVisitePatient(patient1);
 					break;
 				case 5:
 					secretaire = null;
 					break;
+				case 6:
+					secretaire = null;
+					continuProgramme=false;
+					break;
+								
 			}
 		}
-		if(reponse==4) {
+		if(reponse==5) {
 			menuprincipal();
 		}
+		return continuProgramme;
 	}
 
 	public static void main(String[] args){
@@ -157,7 +177,8 @@ public class main {
 		daoCompte.create(new Secretaire("secretaire1", "Secretaire1",TypeCompte.Secretaire));
 		daoCompte.create(new Medecin("medecin1", "Medecin1",TypeCompte.Medecin));
 		daoCompte.create(new Medecin("medecin2", "Medecin2",TypeCompte.Medecin));*/
+		
 		menuprincipal();
+		
 	}
-
 }
