@@ -81,11 +81,6 @@ public class Medecin extends Compte{
 		Medecin other = (Medecin) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	@Override
-	public String toString() {
-		return "Medecin [id=" + id + "]";
-	}
 	
 	public void salleDisponible() {
 		//sauvegarder visite
@@ -120,7 +115,13 @@ public class Medecin extends Compte{
 		}
 		visites.clear();
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Medecin [id=" + id + ", salle=" + salle + "]";
+	}
+
+
 
 	
 }

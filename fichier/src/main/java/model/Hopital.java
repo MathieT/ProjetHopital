@@ -1,13 +1,15 @@
 package model;
 
+import java.util.Queue;
+
 public class Hopital {
 
 		private Secretaire secretaire;
 		private Medecin medecin1;
 		private Medecin medecin2;
-		private FileAttente listeAttente;
+		private Queue<Patient> listeAttente;
 		
-		public Hopital(Secretaire secretaire, Medecin medecin1, Medecin medecin2, FileAttente listeAttente) {
+		public Hopital(Secretaire secretaire, Medecin medecin1, Medecin medecin2, Queue<Patient> listeAttente) {
 			super();
 			this.secretaire = secretaire;
 			this.medecin1 = medecin1;
@@ -51,11 +53,11 @@ public class Hopital {
 		}
 
 
-		public FileAttente getListeAttente() {
+		public Queue<Patient> getListeAttente() {
 			return listeAttente;
 		}
 
-		public void setListeAttente(FileAttente listeAttente) {
+		public void setListeAttente(Queue<Patient> listeAttente) {
 			this.listeAttente = listeAttente;
 		}
 

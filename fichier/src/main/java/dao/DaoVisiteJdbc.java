@@ -107,11 +107,12 @@ public class DaoVisiteJdbc implements DaoVisite {
 					rs.getString("patient_prenom"));
 
 		}
-		medecin = new Medecin(rs.getLong("compte_id"));
+		medecin = new Medecin(rs.getLong("visite_idmedecin"));
 		if (rs.getString("visite_salle") != null) {
 			visite.setSalle(Salle.valueOf(rs.getString("visite_salle")));
 			medecin.setSalle(Salle.valueOf(rs.getString("visite_salle")));
 		}
+		visite.setMedecin(medecin);
 		visite.setPatient(patient);
 		return visite;
 	}

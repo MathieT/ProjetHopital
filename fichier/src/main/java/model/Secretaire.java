@@ -36,7 +36,13 @@ public class Secretaire extends Compte {
 	}
 
 	public boolean ajoutFileAttente(Patient patient) {
-		return fileAttente.add(patient);
+		if(!fileAttente.contains(patient)) {
+			return fileAttente.add(patient);
+		}
+		else {
+			System.err.println("Ce patient est déjà dans la file d'attente");
+			return false;
+		}
 	}
 	
 	public void afficherVisitePatient(Patient patient) {

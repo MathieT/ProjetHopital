@@ -28,21 +28,17 @@ public class Patient implements Serializable{
 		return nom;
 	}
 
-
 	public String getPrenom() {
 		return prenom;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
