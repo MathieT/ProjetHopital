@@ -143,9 +143,15 @@ public class main {
 					String patientConnu;
 					patientConnu = SaisieString("Le patient est-il dans la base de données (Y/N)?");
 					if(patientConnu.equals("N")) {
+						String nomPatient = SaisieString("Rentrez le nom du patient : ");
+						String prenomPatient = SaisieString("Rentrez le prénom du patient : ");
+						DaoPatient daoPatient = JdbcContext.getDaoPatient();
+						Patient nouveaupatient = new Patient(nomPatient, prenomPatient);
+						daoPatient.create(nouveaupatient);
+						System.out.println("Les données du nouveau patient sont :"+nouveaupatient.toString());
 					}
 					Long idPatient;
-					idPatient = SaisieLong("Rentrez l'ID du patient : ");
+					idPatient = SaisieLong("Rentrez l'ID du patient à ajouter à la file d'attente : ");
 					DaoPatient daoPatient = JdbcContext.getDaoPatient();
 					secretaire.ajoutFileAttente(daoPatient.findByKey(idPatient));
 					break;
