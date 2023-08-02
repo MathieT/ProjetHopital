@@ -29,9 +29,8 @@ CREATE TABLE `compte` (
   `compte_login` varchar(45) NOT NULL,
   `compte_password` varchar(45) NOT NULL,
   `compte_typeCompte` varchar(45) NOT NULL,
-  PRIMARY KEY (`compte_id`),
-  CONSTRAINT `compte_compte_id_fk` FOREIGN KEY (`compte_id`) REFERENCES `visite` (`visite_idmedecin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`compte_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +39,7 @@ CREATE TABLE `compte` (
 
 LOCK TABLES `compte` WRITE;
 /*!40000 ALTER TABLE `compte` DISABLE KEYS */;
+INSERT INTO `compte` VALUES (4,'secretaire1','Secretaire1','Secretaire'),(5,'medecin1','Medecin1','Medecin'),(6,'medecin2','Medecin2','Medecin');
 /*!40000 ALTER TABLE `compte` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,9 +54,8 @@ CREATE TABLE `patient` (
   `patient_id` int NOT NULL AUTO_INCREMENT,
   `patient_nom` varchar(45) NOT NULL,
   `patient_prenom` varchar(45) NOT NULL,
-  PRIMARY KEY (`patient_id`),
-  CONSTRAINT `patient_patient_id_fk` FOREIGN KEY (`patient_id`) REFERENCES `visite` (`visite_idpatient`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`patient_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,6 +64,7 @@ CREATE TABLE `patient` (
 
 LOCK TABLES `patient` WRITE;
 /*!40000 ALTER TABLE `patient` DISABLE KEYS */;
+INSERT INTO `patient` VALUES (1,'Tenenbaum','Mathie'),(2,'Beatrice','Pano'),(3,'Fabien','Chardon');
 /*!40000 ALTER TABLE `patient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,7 +76,7 @@ DROP TABLE IF EXISTS `visite`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `visite` (
-  `visite_numero` int NOT NULL,
+  `visite_numero` int NOT NULL AUTO_INCREMENT,
   `visite_idpatient` int NOT NULL,
   `visite_idmedecin` int NOT NULL,
   `visite_tarif` decimal(10,0) NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE `visite` (
   KEY `visite_id_medecin_fk_idx` (`visite_idmedecin`),
   CONSTRAINT `visite_id_medecin_fk` FOREIGN KEY (`visite_idmedecin`) REFERENCES `compte` (`compte_id`),
   CONSTRAINT `visite_id_patient_fk` FOREIGN KEY (`visite_idpatient`) REFERENCES `patient` (`patient_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,12 +96,9 @@ CREATE TABLE `visite` (
 
 LOCK TABLES `visite` WRITE;
 /*!40000 ALTER TABLE `visite` DISABLE KEYS */;
+INSERT INTO `visite` VALUES (10,1,5,20,'Salle1','2023-07-27 00:00:00'),(11,2,5,20,'Salle1','2023-07-27 00:00:00'),(12,3,5,20,'Salle1','2023-07-27 00:00:00'),(13,2,5,20,'Salle1','2023-07-27 00:00:00'),(14,3,5,20,'Salle1','2023-07-27 00:00:00'),(15,1,5,20,'Salle1','2023-07-27 00:00:00'),(16,2,5,20,'Salle1','2023-07-27 00:00:00');
 /*!40000 ALTER TABLE `visite` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'tphopital'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -112,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-24 11:34:22
+-- Dump completed on 2023-08-01 14:17:36
