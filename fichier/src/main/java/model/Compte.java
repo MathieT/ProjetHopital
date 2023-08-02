@@ -81,6 +81,7 @@ public class Compte {
 	}
 	
 	public void afficherFileAttente() {
+		System.out.println("Patients dans la file d'attente :");
 		for(Patient patient: fileAttente) {
 		System.out.println(patient.toString());
 		}

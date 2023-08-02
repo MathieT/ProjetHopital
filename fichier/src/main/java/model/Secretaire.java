@@ -37,6 +37,7 @@ public class Secretaire extends Compte {
 
 	public boolean ajoutFileAttente(Patient patient) {
 		if(!fileAttente.contains(patient)) {
+			System.out.println("Ajout du patient : "+patient.toString()+" dans la salle d'attente");
 			return fileAttente.add(patient);
 		}
 		else {
@@ -46,6 +47,7 @@ public class Secretaire extends Compte {
 	}
 	
 	public void afficherVisitePatient(Patient patient) {
+		System.out.println("Liste des visites du patient :");
 			DaoVisite daoVisite = JdbcContext.getDaoVisite();
 			List<Visite> visites= daoVisite.findByPatient(patient);
 			for(Visite visite: visites) {

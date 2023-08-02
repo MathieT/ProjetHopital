@@ -42,7 +42,8 @@ public class main {
 		return a;
 	}
 	
-	static void identification() throws ExceptionLoginFail {
+	static boolean identification() throws ExceptionLoginFail {
+		boolean continuProgramme=true;
 		System.out.println("Veuillez vous identifier");
 		DaoCompte daoCompte = JdbcContext.getDaoCompte();
 		String login = SaisieString("Login :");
@@ -58,31 +59,36 @@ public class main {
 			if(compte.getTypeCompte()==TypeCompte.Medecin) {
 				String nomsalle = SaisieString("Choisissez une salle (Tapez Salle1 ou Salle2) :");
 				Medecin medecin = new Medecin(compte.getId(),compte.getLogin(),compte.getPassword(),Salle.valueOf(nomsalle));
-				menuPrincipalMedecin(medecin);
+				continuProgramme=menuPrincipalMedecin(medecin);
 			}
 			else {
 				Secretaire secretaire = new Secretaire(compte.getId(),compte.getLogin(),compte.getPassword());
-				menuPrincipalSecretaire(secretaire);
+				continuProgramme=menuPrincipalSecretaire(secretaire);
 			}
 		}
+		return continuProgramme;
 	}
 	
 
-	static void menuprincipal() {
-		boolean continuProgramme=true;
+	static void menuprincipal(boolean continuProgramme) {
 		while(continuProgramme) {
 			try {
-			identification();
+					continuProgramme=identification();
 				}catch(ExceptionLoginFail e) {
-			e.printStackTrace();
+					//e.printStackTrace();
+					System.err.println(e.toString());
 				}
 		}
+		System.out.println("Fermeture de l'applicaction");
+		System.out.println("A bientôt");
 	}
 	
 	static boolean menuPrincipalMedecin(Medecin medecin) throws ExceptionLoginFail {
 		boolean continuProgramme=true;
 		int reponse = 0;
 		while(medecin!=null) {
+			System.out.println();
+			System.out.println("Menu :");
 			System.out.println();
 			System.out.println("Pour rendre votre salle disponible, vous pouvez cliquer sur 1 ");
 			System.out.println("Pour voir la file d'attente, vous pouvez cliquer sur 2 ");
@@ -106,15 +112,13 @@ public class main {
 					break;
 				case 5:
 					medecin = null;
+					System.out.println("Déconnexion");
 					break;
 				case 6:
 					medecin = null;
 					continuProgramme=false;
 					break;
 			}
-		}
-		if(reponse==5) {
-			menuprincipal();
 		}
 		return continuProgramme;
 	}
@@ -123,6 +127,9 @@ public class main {
 		boolean continuProgramme=true;
 		int reponse = 0;
 		while(secretaire!=null) {
+			System.out.println();
+			System.out.println("Menu :");
+			System.out.println();
 			System.out.println("Pour ajouter un patient en liste d'attente, vous pouvez cliquer sur 1 ");
 			System.out.println("Pour voir la file d'attente, vous pouvez cliquer sur 2 ");
 			System.out.println("Pour partir en pause, vous pouvez cliquer sur 3 ");
@@ -147,7 +154,7 @@ public class main {
 					break;
 				case 3 :
 					secretaire.enPause();
-					SaisieString("Tapez sur n'importe quelle touche quand vous ètes de retour de pause");
+					SaisieString("Tapez sur n'importe quelle touche quand vous ètes de retour de pause puis sur la touche entrée");
 					secretaire.finPause();
 					break;	
 				case 4:
@@ -158,16 +165,13 @@ public class main {
 					break;
 				case 5:
 					secretaire = null;
+					System.out.println("Déconnexion");
 					break;
 				case 6:
 					secretaire = null;
 					continuProgramme=false;
-					break;
-								
+					break;	
 			}
-		}
-		if(reponse==5) {
-			menuprincipal();
 		}
 		return continuProgramme;
 	}
@@ -177,8 +181,6 @@ public class main {
 		daoCompte.create(new Secretaire("secretaire1", "Secretaire1",TypeCompte.Secretaire));
 		daoCompte.create(new Medecin("medecin1", "Medecin1",TypeCompte.Medecin));
 		daoCompte.create(new Medecin("medecin2", "Medecin2",TypeCompte.Medecin));*/
-		
-		menuprincipal();
-		
+		menuprincipal(true);
 	}
 }

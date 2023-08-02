@@ -83,7 +83,6 @@ public class Medecin extends Compte{
 	}
 	
 	public void salleDisponible() {
-		//sauvegarder visite
 		if(fileAttente.size()>0) {
 			Visite visite = new Visite (salle, LocalDate.now(), fileAttente.peek(), this);
 			visites.add(visite);
@@ -92,6 +91,7 @@ public class Medecin extends Compte{
 		if(visites.size()==10) {
 			this.sauvegarderVisites();
 		}
+		System.out.println("La salle est disponible");
 	}
 	
 	public void enregistrerVisite() {
@@ -101,7 +101,7 @@ public class Medecin extends Compte{
 	
 	public void visualiserProchainPatient() {
 		if(fileAttente.size()>0) {
-		System.out.println("prochain patient:" + fileAttente.peek().toString());
+		System.out.println("Prochain patient:" + fileAttente.peek().toString());
 		}
 		else {
 			System.out.println("Pas de patient dans la file d'attente");
@@ -114,6 +114,7 @@ public class Medecin extends Compte{
 			daoVisite.create(visite);
 		}
 		visites.clear();
+		System.out.println("Les visites ont été sauvegardées dans la base de données");
 	}
 
 	@Override
