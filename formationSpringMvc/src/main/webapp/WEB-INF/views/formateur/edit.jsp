@@ -53,6 +53,16 @@
 				<form:input path="adresse.ville" class="form-control" />
 				<form:errors path="adresse.ville"></form:errors>
 			</div>
+			<table class="table">
+			<tbody>
+				<c:forEach var="co" items="${competences}">
+					<tr>
+						<td>${co.libelle}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+			<div><a href="competence/add" class="btn btn-outline-warning">ajouter competence</a></div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-outline-primary">enregistrer</button>
 				<a href="formateur" class="btn btn-outline-warning">annuler</a>

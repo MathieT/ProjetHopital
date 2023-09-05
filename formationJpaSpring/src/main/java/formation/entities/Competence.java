@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "skill")
@@ -20,6 +21,7 @@ public class Competence {
 	@Column(name = "skill_id")
 	private Long id;
 	@Column(name = "skill_name")
+	@NotBlank(message="libelle obligatoire")
 	private String libelle;
 	@ManyToMany(mappedBy = "competences")
 	private Set<Formateur> formateurs;

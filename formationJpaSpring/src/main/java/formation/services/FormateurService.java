@@ -59,7 +59,7 @@ public class FormateurService {
 		}
 
 		Set<ConstraintViolation<Formateur>> violations = validator.validate(formateur);
-		if(!violations.isEmpty()) {
+		if (!violations.isEmpty()) {
 			throw new FormateurException("données invalides");
 		}
 

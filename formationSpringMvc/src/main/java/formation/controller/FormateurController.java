@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import formation.entities.Adresse;
 import formation.entities.Formateur;
+import formation.services.CompetenceService;
 import formation.services.FormateurService;
 import jakarta.validation.Valid;
-import jakarta.validation.Validator;
 
 @Controller
 @RequestMapping("/formateur")
@@ -22,11 +21,13 @@ public class FormateurController {
 
 	@Autowired
 	private FormateurService formateurSrv;
+	@Autowired
+	private CompetenceService CompetenceSrv;
 
 
 	@GetMapping("/edit")
 	public String edit(Model model, @RequestParam Long id) {
-		model.addAttribute("formateur", formateurSrv.findById(id));
+		model.addAttribute("formateur", formateurSrv.findByIdWithCompetence(id));
 		return goForm(model);
 	}
 
@@ -37,6 +38,7 @@ public class FormateurController {
 	}
 
 	private String goForm(Model model) {
+		model.addAttribute("competences", ((Formateur)model.getAttribute("formateur")).getCompetences());
 		return "formateur/edit";
 	}
 
