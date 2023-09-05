@@ -57,17 +57,21 @@
 			<tbody>
 				<c:forEach var="co" items="${competences}">
 					<tr>
-						<td>${co.libelle}</td>
+						<td>ici =${co.libelle}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-			<div><a href="competence/add" class="btn btn-outline-warning">ajouter competence</a></div>
+			<!-- <div><form:form action="competence/add" method="get" modelAttribute="formateur">
+			<button type="submit" class="btn btn-outline-primary">ajouter competence</button></form:form></div> -->
+			<a href="competence/add?id=${formateur.id}" class="btn btn-outline-warning">ajouter competence</a>
+			
 			<div class="form-group">
 				<button type="submit" class="btn btn-outline-primary">enregistrer</button>
 				<a href="formateur" class="btn btn-outline-warning">annuler</a>
 			</div>
 		</form:form>
+		
 	</div>
 </body>
 </html>

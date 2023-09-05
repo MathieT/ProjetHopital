@@ -27,6 +27,8 @@ public class FormateurController {
 
 	@GetMapping("/edit")
 	public String edit(Model model, @RequestParam Long id) {
+		System.out.println(formateurSrv.findByIdWithCompetence(id));
+		System.out.println(formateurSrv.findByIdWithCompetence(id).getId());
 		model.addAttribute("formateur", formateurSrv.findByIdWithCompetence(id));
 		return goForm(model);
 	}

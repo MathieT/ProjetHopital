@@ -1,11 +1,9 @@
 package application;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 import dao.DaoCompte;
 import dao.DaoPatient;
-import dao.DaoVisite;
 import dao.JdbcContext;
 import model.Compte;
 import model.ExceptionLoginFail;
@@ -14,7 +12,6 @@ import model.Patient;
 import model.Salle;
 import model.Secretaire;
 import model.TypeCompte;
-import model.Visite;
 
 public class main {
 	
@@ -79,7 +76,7 @@ public class main {
 					System.err.println(e.toString());
 				}
 		}
-		System.out.println("Fermeture de l'applicaction");
+		System.out.println("Fermeture de l'application");
 		System.out.println("A bientôt");
 	}
 	
