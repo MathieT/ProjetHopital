@@ -1,15 +1,15 @@
 package formation.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import formation.entities.Formateur;
+import formation.entities.Cours;
 import formation.entities.Formation;
-import formation.exceptions.FormateurException;
 import formation.exceptions.FormationException;
 import formation.exceptions.IdException;
 import formation.repositories.FormationRepository;
@@ -21,6 +21,8 @@ public class FormationService {
 	private FormationRepository formationRepo;
 	@Autowired
 	private FormateurService formateurService;
+	@Autowired
+	private CoursService coursService;
 
 	public Formation create(Formation formation) {
 		checkFormationIsNotNull(formation);
@@ -74,7 +76,10 @@ public class FormationService {
 	}
 
 	private void deleteById(Long id) {
-		Formation formation = getById(id);
+		Formation formation = findByIdWithCoursAndParticipants(id);
+		Set<Cours> cours = formation.getCours();
+		cours.forEach(c->coursService.delete(c));
+		formation=getById(id);
 		formationRepo.delete(formation);
 	}
 

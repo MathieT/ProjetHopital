@@ -56,7 +56,7 @@ public class FormationController {
 	}
 
 	@PostMapping("")
-	public String save(Model model, @Valid @ModelAttribute Formation formation, BindingResult br) {
+	public String save(Model model, @RequestParam String save, @Valid @ModelAttribute Formation formation, BindingResult br) {
 		if (br.hasErrors()) {
 			return form(model, formation);
 		}
@@ -65,6 +65,10 @@ public class FormationController {
 		} else {
 			formationSrv.create(formation);
 		}
-		return "redirect:/formation";
+		if(save.equals("save")) {
+			return "redirect:/formation";
+		}else {
+			return "redirect:/cours/add?id="+formation.getId();
+		}
 	}
 }

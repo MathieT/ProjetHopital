@@ -29,7 +29,7 @@
 				<form:label path="nom">nom:</form:label>
 				<form:input path="nom" class="form-control" />
 				<form:errors path="nom" element="div" cssClass="alert alert-danger"></form:errors>
-				
+
 			</div>
 			<div class="form-group">
 				<form:label path="experience">experience:</form:label>
@@ -54,23 +54,34 @@
 				<form:errors path="adresse.ville"></form:errors>
 			</div>
 			<table class="table">
-			<tbody>
-				<c:forEach var="co" items="${competences}">
+				<thead>
 					<tr>
-						<td>ici =${co.libelle}</td>
+						<th>Liste des compétences</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-			<!--  <a href="competence/add?id=${formateur.id}" class="btn btn-outline-warning">ajouter competence</a>
-			-->
-			<button name="save" value="save2" type="submit" class="btn btn-outline-primary">ajouter competence</button>
+					<tr>
+						<th>Id</th>
+						<th>Libelle</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<c:forEach var="co" items="${competences}">
+						<tr>
+							<td>${co.id}</td>
+							<td>${co.libelle}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<button name="save" value="save2" type="submit"
+				class="btn btn-outline-primary">ajouter competence</button>
 			<div class="form-group">
-				<button type="submit" name="save" value="save" class="btn btn-outline-primary">enregistrer</button>
+				<button type="submit" name="save" value="save"
+					class="btn btn-outline-primary">enregistrer</button>
 				<a href="formateur" class="btn btn-outline-warning">annuler</a>
 			</div>
 		</form:form>
-		
+
 	</div>
 </body>
 </html>
