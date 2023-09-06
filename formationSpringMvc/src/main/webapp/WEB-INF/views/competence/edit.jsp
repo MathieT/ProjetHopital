@@ -17,14 +17,17 @@
 <body>
 	<div class="container">
 		<h1>edition competence</h1>
+		
 		<form:form action="competence" method="post"
 			modelAttribute="competence">
-			<form:hidden path="version" />
+			<form:hidden path="version"/>
 			<div class="form-group">
 				<form:label path="id">id:</form:label>
 				<form:input path="id" class="form-control" readonly="true"
 					placeholder="generation auto" />
 			</div>
+			
+			
 
 			<div class="form-group">
 				<form:label path="libelle">libelle:</form:label>
@@ -34,8 +37,8 @@
 			</div>
 
 			<div class="form-group">
-				<button type="submit" class="btn btn-outline-primary">enregistrer</button>
-				<a href="formateur" class="btn btn-outline-warning">annuler</a>
+				<button name="formateurId" value="${formateur.id}" type="submit" class="btn btn-outline-primary">enregistrer</button>
+				<a href="formateur/edit?id=${formateur.id}" class="btn btn-outline-warning">annuler</a>
 			</div>
 		</form:form>
 	</div>

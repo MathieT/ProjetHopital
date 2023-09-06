@@ -7,7 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import formation.entities.Formateur;
 import formation.entities.Formation;
+import formation.exceptions.FormateurException;
 import formation.exceptions.FormationException;
 import formation.exceptions.IdException;
 import formation.repositories.FormationRepository;
@@ -51,6 +53,15 @@ public class FormationService {
 			throw new IdException();
 		}
 		return formationRepo.findById(id).orElseThrow(IdException::new);
+	}
+	
+	public Formation findByIdWithCoursAndParticipants(Long id) {
+		if (id == null) {
+			throw new IdException();
+		}
+		return formationRepo.findByIdFetchCoursAndParticipants(id).orElseThrow(() -> {
+			throw new IdException();
+		});
 	}
 
 	public void delete(Formation formation) {

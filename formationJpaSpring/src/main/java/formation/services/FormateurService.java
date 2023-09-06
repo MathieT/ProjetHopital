@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import formation.entities.Competence;
 import formation.entities.Formateur;
 import formation.exceptions.FormateurException;
 import formation.repositories.CoursRepository;
@@ -62,7 +63,19 @@ public class FormateurService {
 		if (!violations.isEmpty()) {
 			throw new FormateurException("données invalides");
 		}
-
+		if(formateur.getId()!=null) {
+			Formateur formateur2 = findByIdWithCompetence(formateur.getId());
+			Set<Competence> competences = formateur.getCompetences();
+			if(competences==null) {
+				if(formateur2.getCompetences()!=null) {
+					formateur.setCompetences(formateur2.getCompetences());
+				}	
+			}else {
+				if(formateur2.getCompetences()!=null) {
+					competences.addAll(formateur2.getCompetences());
+				}
+			}
+		}
 		return formateurRepo.save(formateur);
 	}
 

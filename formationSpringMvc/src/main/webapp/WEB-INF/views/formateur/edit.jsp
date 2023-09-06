@@ -62,12 +62,11 @@
 				</c:forEach>
 			</tbody>
 		</table>
-			<!-- <div><form:form action="competence/add" method="get" modelAttribute="formateur">
-			<button type="submit" class="btn btn-outline-primary">ajouter competence</button></form:form></div> -->
-			<a href="competence/add?id=${formateur.id}" class="btn btn-outline-warning">ajouter competence</a>
-			
+			<!--  <a href="competence/add?id=${formateur.id}" class="btn btn-outline-warning">ajouter competence</a>
+			-->
+			<button name="save" value="save2" type="submit" class="btn btn-outline-primary">ajouter competence</button>
 			<div class="form-group">
-				<button type="submit" class="btn btn-outline-primary">enregistrer</button>
+				<button type="submit" name="save" value="save" class="btn btn-outline-primary">enregistrer</button>
 				<a href="formateur" class="btn btn-outline-warning">annuler</a>
 			</div>
 		</form:form>

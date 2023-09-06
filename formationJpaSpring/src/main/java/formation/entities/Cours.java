@@ -11,11 +11,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "course")
 public class Cours {
 	@EmbeddedId
+	@NotNull
 	private CoursId id;
 	@Column(name = "course_date")
 	private LocalDate date;

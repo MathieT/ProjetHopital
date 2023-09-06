@@ -38,7 +38,8 @@ public class FormationController {
 
 	@GetMapping("/edit")
 	public String edit(@RequestParam Long id, Model model) {
-		return form(model, formationSrv.getById(id));
+		model.addAttribute("formation", formationSrv.findByIdWithCoursAndParticipants(id));
+		return form(model, (Formation)model.getAttribute("formation"));
 	}
 
 	@GetMapping("/add")
@@ -50,6 +51,7 @@ public class FormationController {
 		model.addAttribute("formation", formation);
 		model.addAttribute("formateurs", formateurSrv.findAll());
 		model.addAttribute("types", Type.values());
+		model.addAttribute("cours",((Formation)model.getAttribute("formation")).getCours());
 		return "formation/edit";
 	}
 

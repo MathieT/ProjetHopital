@@ -27,8 +27,6 @@ public class FormateurController {
 
 	@GetMapping("/edit")
 	public String edit(Model model, @RequestParam Long id) {
-		System.out.println(formateurSrv.findByIdWithCompetence(id));
-		System.out.println(formateurSrv.findByIdWithCompetence(id).getId());
 		model.addAttribute("formateur", formateurSrv.findByIdWithCompetence(id));
 		return goForm(model);
 	}
@@ -74,13 +72,17 @@ public class FormateurController {
 //		return "formateur/list";
 //	}
 	@PostMapping("")
-	public String save(Model model, @Valid @ModelAttribute("formateur") Formateur formateur, BindingResult br) {
+	public String save(Model model,@RequestParam String save, @Valid @ModelAttribute("formateur") Formateur formateur, BindingResult br) {
 		model.addAttribute("formateur", formateur);
 		System.out.println(br);
 		if (br.hasErrors()) {
 			return goForm(model);
 		}
 		formateurSrv.createOrUpdate(formateur);
-		return "redirect:/formateur";
+		if(save.equals("save")) {
+			return "redirect:/formateur";
+		}else {
+			return "redirect:/competence/add?id="+formateur.getId();
+		}
 	}
 }

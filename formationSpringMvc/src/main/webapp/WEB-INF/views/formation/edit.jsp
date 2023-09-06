@@ -17,6 +17,7 @@
 <body>
 	<div class="container">
 		<h1>edition formation</h1>
+		
 		<form:form action="formation" method="post" modelAttribute="formation">
 			<div class="form-group">
 				<form:label path="id">id:</form:label>
@@ -45,6 +46,24 @@
 					itemLabel="infos" itemValue="id" class="form-control"></form:select>
 				<form:errors path="referent"></form:errors>
 			</div>
+			<table class="table">
+			<thead>
+				<tr>
+					<th>Liste des cours:</th>
+				</tr>
+			</thead>
+			<tbody>
+			
+				<c:forEach var="co" items="${cours}">
+					<tr>
+						<td>Formation(${co.id.formation.nom}) Competence(${co.id.matiere.libelle})</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			</table>
+			<c:if test="${formation.id!=null}">
+			<a href="cours/add?id=${formation.id}" class="btn btn-outline-warning">ajouter cours</a>
+			</c:if>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary">enregistrer</button>
 				<a href="formation" class="btn btn-warning">annuler</a>

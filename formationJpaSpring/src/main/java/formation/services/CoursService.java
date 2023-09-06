@@ -37,6 +37,10 @@ public class CoursService {
 		cours = this.findById(cours.getId());
 		coursRepo.delete(cours);
 	}
+	
+	public void deleteById(CoursId id) {
+		coursRepo.deleteById(id);
+	}
 
 	public List<Cours> findAll() {
 		return coursRepo.findAll();

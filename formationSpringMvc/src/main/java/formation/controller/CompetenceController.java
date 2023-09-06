@@ -22,7 +22,6 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/competence")
-@SessionAttributes("formateur")
 public class CompetenceController {
 
 	@Autowired
@@ -49,8 +48,11 @@ public class CompetenceController {
 
 	@GetMapping("/add")
 	public String add(Model model, @RequestParam Long id) {
-		model.addAttribute("formateur", formateurSrv.findByIdWithCompetence(id));
-		return form(model, new Competence());
+		Formateur formateur = formateurSrv.findByIdWithCompetence(id);
+		Competence competence = new Competence();
+		model.addAttribute("formateur", formateur);
+		System.out.println(formateur);
+		return form(model, competence);
 	}
 
 	private String form(Model model, Competence competence) {
@@ -59,19 +61,17 @@ public class CompetenceController {
 	}
 
 	@PostMapping("")
-	public String save(Model model, @Valid @ModelAttribute Competence competence, BindingResult br) {
+	public String save(Model model, @RequestParam String formateurId, @Valid @ModelAttribute Competence competence, BindingResult br) {
 		if (br.hasErrors()) {
 			return form(model, competence);
 		}
-		Set<Formateur> formateurs = new HashSet<Formateur>();
-		formateurs.add((Formateur)model.getAttribute("formateur"));
-		competence.setFormateurs(formateurs);
+		System.out.println(formateurId);
+		Formateur formateur = formateurSrv.findByIdWithCompetence(Long.parseLong(formateurId));
 		competenceSrv.createOrUpdate(competence);
-		Set<Competence> competences = ((Formateur)model.getAttribute("formateur")).getCompetences();
+		Set<Competence> competences = formateur.getCompetences();
 		competences.add(competence);
-		((Formateur)model.getAttribute("formateur")).setCompetences(competences);
-		formateurSrv.createOrUpdate((Formateur)model.getAttribute("formateur"));
-		//((Formateur)model.getAttribute("formateur")).getCompetences().forEach(c->System.out.println(c.getLibelle()));
-		return "redirect:/formateur/edit?id="+((Formateur)model.getAttribute("formateur")).getId();
+		formateur.setCompetences(competences);
+		formateurSrv.createOrUpdate(formateur);
+		return "redirect:/formateur/edit?id="+formateur.getId();
 	}
 }
